@@ -1,0 +1,1992 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     71993,       1983]
+NotebookOptionsPosition[     69184,       1890]
+NotebookOutlinePosition[     69522,       1905]
+CellTagsIndexPosition[     69479,       1902]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"**", " ", "mtDNA"}], " ", 
+    RowBox[{"dynamics", " ", "--"}], " ", "general", " ", "case"}], " ", 
+   "***)"}], "Chapter"]], "Input",
+ CellChangeTimes->{{3.800171284171677*^9, 3.800171296749805*^9}, {
+  3.8001718577457867`*^9, 3.8001718595771847`*^9}}],
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"(*", 
+   RowBox[{"**", " ", "preamble"}], " ", "***)"}], "Subtitle"]], "Input",
+ CellChangeTimes->{{3.800171456698104*^9, 3.800171459956518*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"**", " ", 
+    RowBox[{"w", "[", "t", "]"}]}], " ", "and", " ", 
+   RowBox[{"m", "[", "t", "]"}], " ", "describe", " ", "wildtype", " ", "and",
+    " ", "mutant", " ", "copy", " ", "numbers", " ", "in", " ", "the", " ", 
+   RowBox[{"cell", ".", " ", "we"}], " ", "have", " ", "replication", " ", 
+   "and", " ", "degradation", " ", "rates", " ", "which", " ", "can", " ", 
+   "depend", " ", "on", " ", "current", " ", 
+   RowBox[{"state", ".", " ", "we"}], " ", "Taylor", " ", "expand", " ", 
+   "these", " ", "rates", " ", "and", " ", "proceed", " ", "via", " ", "the", 
+   " ", "system", " ", "size", " ", 
+   RowBox[{"expansion", "."}]}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.800171297971627*^9, 3.800171386845401*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"**", " ", "first"}], " ", "write", " ", "down", " ", "Taylor"}], 
+   "-", 
+   RowBox[{"expanded", " ", "rates"}]}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.634659047999508*^9, 3.634659054403158*^9}, {
+  3.8001713918614397`*^9, 3.8001713939894123`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"f1", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"w", "[", "t", "]"}], 
+    RowBox[{"(", 
+     RowBox[{"\[Beta]0", "+", " ", 
+      RowBox[{"\[Beta]w", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"w", "[", "t", "]"}], "-", "ws"}], ")"}]}], " ", "+", " ", 
+      RowBox[{"\[Beta]m", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"m", "[", "t", "]"}], "-", "ms"}], ")"}]}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f2", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], 
+    RowBox[{"(", 
+     RowBox[{"\[Beta]0", "+", " ", 
+      RowBox[{"\[Beta]w", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"w", "[", "t", "]"}], "-", "ws"}], " ", ")"}]}], " ", "+", 
+      " ", 
+      RowBox[{"\[Beta]m", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"m", "[", "t", "]"}], "-", "ms"}], ")"}]}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f3", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"w", "[", "t", "]"}], 
+    RowBox[{"(", 
+     RowBox[{"\[Beta]0", " ", "+", " ", 
+      RowBox[{"\[Delta]w", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"w", "[", "t", "]"}], "-", "ws"}], ")"}]}], " ", "+", " ", 
+      RowBox[{"\[Delta]m", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"m", "[", "t", "]"}], "-", "ms"}], ")"}]}]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f4", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], 
+    RowBox[{"(", 
+     RowBox[{"\[Beta]0", " ", "+", " ", 
+      RowBox[{"\[Delta]w", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"w", "[", "t", "]"}], "-", "ws"}], ")"}]}], " ", "+", " ", 
+      RowBox[{"\[Delta]m", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"m", "[", "t", "]"}], "-", "ms"}], ")"}]}]}], ")"}]}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.634883135303189*^9, 3.634883150179606*^9}, {
+  3.635424565648475*^9, 3.635424614184321*^9}, {3.635425240574593*^9, 
+  3.635425242271849*^9}, {3.635488864733171*^9, 3.635488891643695*^9}, {
+  3.635491495899724*^9, 3.635491499760695*^9}, {3.635505779730888*^9, 
+  3.635505797169402*^9}, {3.636013591737851*^9, 3.636013624477709*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"**", " ", "now"}], " ", "construct", " ", "the", " ", 
+     "fokker"}], "-", 
+    RowBox[{
+    "planck", " ", "matrices", " ", "a", " ", "and", " ", "b", " ", "from", 
+     " ", "the", " ", "system", " ", "size", " ", "expansion"}]}], ",", " ", 
+   RowBox[{
+   "making", " ", "some", " ", "symbol", " ", "substitutions", " ", "for", 
+    " ", "convenience"}]}], "  ", "***)"}]], "Input",
+ CellChangeTimes->{{3.634659394668005*^9, 3.634659407497075*^9}, {
+  3.8001713971172237`*^9, 3.800171424397461*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ap11", " ", "=", " ", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{"f1", ",", 
+          RowBox[{"w", "[", "t", "]"}]}], "]"}], "-", 
+        RowBox[{"D", "[", 
+         RowBox[{"f3", ",", 
+          RowBox[{"w", "[", "t", "]"}]}], "]"}]}], ")"}], "/.", 
+      RowBox[{"\[Beta]m", "\[Rule]", 
+       RowBox[{"\[Kappa]m", "+", "\[Delta]m"}]}]}], "/.", 
+     RowBox[{"\[Beta]w", "\[Rule]", 
+      RowBox[{"\[Kappa]w", "+", "\[Delta]w"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ap12", "=", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{"f1", ",", 
+          RowBox[{"m", "[", "t", "]"}]}], "]"}], "-", 
+        RowBox[{"D", "[", 
+         RowBox[{"f3", ",", 
+          RowBox[{"m", "[", "t", "]"}]}], "]"}]}], ")"}], "/.", 
+      RowBox[{"\[Beta]m", "\[Rule]", 
+       RowBox[{"\[Kappa]m", "+", "\[Delta]m"}]}]}], "/.", 
+     RowBox[{"\[Beta]w", "\[Rule]", 
+      RowBox[{"\[Kappa]w", "+", "\[Delta]w"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ap21", " ", "=", " ", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{"f2", ",", 
+          RowBox[{"w", "[", "t", "]"}]}], "]"}], "-", 
+        RowBox[{"D", "[", 
+         RowBox[{"f4", ",", 
+          RowBox[{"w", "[", "t", "]"}]}], "]"}]}], ")"}], "/.", 
+      RowBox[{"\[Beta]m", "\[Rule]", 
+       RowBox[{"\[Kappa]m", "+", "\[Delta]m"}]}]}], "/.", 
+     RowBox[{"\[Beta]w", "\[Rule]", 
+      RowBox[{"\[Kappa]w", "+", "\[Delta]w"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ap22", " ", "=", " ", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{"f2", ",", 
+          RowBox[{"m", "[", "t", "]"}]}], "]"}], "-", 
+        RowBox[{"D", "[", 
+         RowBox[{"f4", ",", 
+          RowBox[{"m", "[", "t", "]"}]}], "]"}]}], ")"}], "/.", 
+      RowBox[{"\[Beta]m", "\[Rule]", 
+       RowBox[{"\[Kappa]m", "+", "\[Delta]m"}]}]}], "/.", 
+     RowBox[{"\[Beta]w", "\[Rule]", 
+      RowBox[{"\[Kappa]w", "+", "\[Delta]w"}]}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.634659412795768*^9, 3.634659470117863*^9}, {
+  3.63465961099197*^9, 3.634659611976324*^9}, {3.641284273880649*^9, 
+  3.641284408099172*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bp11", " ", "=", " ", 
+   RowBox[{"f1", "+", "f3"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bp12", " ", "=", " ", 
+   RowBox[{"b21", " ", "=", " ", "0"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bp22", " ", "=", " ", 
+   RowBox[{"f2", "+", "f4"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.634659482598467*^9, 3.634659495933838*^9}, {
+  3.634659613228645*^9, 3.634659613941278*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"a11", " ", "=", " ", "ap11"}], ";", " ", 
+  RowBox[{"a12", " ", "=", " ", "ap12"}], ";", " ", 
+  RowBox[{"a21", " ", "=", " ", "ap21"}], ";", " ", 
+  RowBox[{"a22", " ", "=", " ", "ap22"}], ";", " ", 
+  RowBox[{"b11", " ", "=", " ", "bp11"}], ";", " ", 
+  RowBox[{"b12", " ", "=", " ", 
+   RowBox[{"b21", " ", "=", " ", "0"}]}], ";", " ", 
+  RowBox[{"b22", " ", "=", " ", "bp22"}], ";"}]], "Input",
+ CellChangeTimes->{{3.634883199939865*^9, 3.63488320032685*^9}, {
+  3.634883524512467*^9, 3.634883569762018*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"**", " ", "check"}], " ", "that", " ", "these", " ", "look", " ", 
+   "reasonable"}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.8001714330181723`*^9, 3.800171440597124*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "a11", ",", " ", "a12", ",", " ", "a21", ",", " ", "a22", ",", " ", 
+      "b11", ",", " ", "b22"}], "}"}], "/.", 
+    RowBox[{
+     RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], "/.", 
+   RowBox[{
+    RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.635864674771946*^9, 3.635864712832626*^9}, {
+  3.636013739868658*^9, 3.636013742344423*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"ws", " ", "\[Kappa]w"}], ",", 
+   RowBox[{"ws", " ", "\[Kappa]m"}], ",", 
+   RowBox[{"ms", " ", "\[Kappa]w"}], ",", 
+   RowBox[{"ms", " ", "\[Kappa]m"}], ",", 
+   RowBox[{"2", " ", "ws", " ", "\[Beta]0"}], ",", 
+   RowBox[{"2", " ", "ms", " ", "\[Beta]0"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.635864675456152*^9, 3.635864713194386*^9}, 
+   3.635864950708057*^9, 3.636013627780684*^9, 3.636013742673058*^9, 
+   3.636029997506613*^9, 3.636033743151153*^9, 3.636037522988534*^9, 
+   3.637406439823565*^9, 3.641194464951743*^9, 3.641205932135519*^9, 
+   3.641284233245254*^9, {3.641284412849595*^9, 3.641284419809529*^9}, 
+   3.641296375878636*^9, 3.643348972965251*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["(*** changes in variances as function of variances \
+\[LineSeparator]and copy number ***)", "Section"]], "Title",
+ CellChangeTimes->{{3.634659921259122*^9, 3.634659926592766*^9}, {
+   3.63488401739844*^9, 3.634884027586489*^9}, {3.634884131045856*^9, 
+   3.634884146005086*^9}, 3.635832157062016*^9, {3.635849264289845*^9, 
+   3.635849264870487*^9}, {3.635859960678094*^9, 3.635859966409636*^9}, {
+   3.635864951181156*^9, 3.635864954335981*^9}, {3.636013629152277*^9, 
+   3.636013632402393*^9}, {3.63602999680678*^9, 3.636029997361908*^9}, {
+   3.64128423208748*^9, 3.641284232763633*^9}, {3.641284420208726*^9, 
+   3.641284426483649*^9}, 3.641296376083624*^9, 3.800171444005003*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"**", " ", "ODEs"}], " ", "for", " ", "second", " ", "moments", 
+     " ", "from", " ", "Fokker"}], "-", 
+    RowBox[{"Planck", " ", "equation"}]}], " ", "***)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"**", " ", "\[Xi]"}], " ", "corresponds", " ", "to", " ", "w", 
+    " ", "and", " ", "\[Eta]", " ", "to", " ", "m"}], " ", 
+   "***)"}]}]], "Input",
+ CellChangeTimes->{{3.800171497533383*^9, 3.80017150779631*^9}, {
+  3.8001715863396*^9, 3.8001715891717176`*^9}, {3.80017166244306*^9, 
+  3.800171676930861*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"dv\[Xi]\[Xi]", "=", " ", 
+  RowBox[{"Simplify", "[", 
+   RowBox[{
+    RowBox[{"2", " ", "a11", " ", 
+     RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}], " ", "+", 
+    RowBox[{"2", "  ", "a12", " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], " ", "+", "b11"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"dv\[Eta]\[Xi]", " ", "=", " ", 
+  RowBox[{"Simplify", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"a11", "+", "a22"}], ")"}], " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "+", " ", 
+    RowBox[{"a12", " ", 
+     RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "+", 
+    RowBox[{"a21", " ", 
+     RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}], "+", "b12"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"dv\[Eta]\[Eta]", "=", " ", 
+  RowBox[{"Simplify", "[", 
+   RowBox[{
+    RowBox[{"2", " ", "a22", " ", 
+     RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "+", 
+    RowBox[{"2", "  ", "a21", " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], " ", "+", "b22"}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.634659553234582*^9, 3.634659597529606*^9}, {
+  3.634883495353673*^9, 3.634883514862775*^9}, {3.634883575170806*^9, 
+  3.63488359756083*^9}, {3.634900462403861*^9, 3.634900473524006*^9}, {
+  3.641284254942359*^9, 3.641284256650654*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"w", "[", "t", "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"2", " ", "\[Beta]0"}], "-", 
+     RowBox[{"ms", " ", "\[Beta]m"}], "-", 
+     RowBox[{"ws", " ", "\[Beta]w"}], "-", 
+     RowBox[{"ms", " ", "\[Delta]m"}], "-", 
+     RowBox[{"ws", " ", "\[Delta]w"}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"\[Beta]m", "+", "\[Delta]m"}], ")"}], " ", 
+      RowBox[{"m", "[", "t", "]"}]}], "+", 
+     RowBox[{"2", " ", "\[Kappa]m", " ", 
+      RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "+", 
+     RowBox[{"\[Beta]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}], "+", 
+     RowBox[{"\[Delta]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}]}], ")"}]}], "-", 
+  RowBox[{"2", " ", 
+   RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+     RowBox[{"ws", " ", "\[Kappa]w"}], "-", 
+     RowBox[{"\[Kappa]m", " ", 
+      RowBox[{"m", "[", "t", "]"}]}], "-", 
+     RowBox[{"2", " ", "\[Kappa]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.635491862859119*^9, 3.635494537645191*^9, 3.635504984819348*^9, {
+   3.635505076753129*^9, 3.635505100597254*^9}, 3.635505800554015*^9, 
+   3.635506244193015*^9, 3.635506518915835*^9, 3.635514319210366*^9, 
+   3.635832058052712*^9, 3.635849266147068*^9, 3.635859967505621*^9, 
+   3.635864726096745*^9, 3.635864955300744*^9, 3.636013633695509*^9, 
+   3.636029998680318*^9, 3.636033753681381*^9, 3.636037525114447*^9, 
+   3.641194466363821*^9, 3.641284433990177*^9, 3.641296377562716*^9, 
+   3.643348974407138*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Kappa]w", " ", 
+   RowBox[{"m", "[", "t", "]"}], " ", 
+   RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}], "+", 
+  RowBox[{"\[Kappa]m", " ", 
+   RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}], " ", 
+   RowBox[{"w", "[", "t", "]"}]}], "+", 
+  RowBox[{
+   RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "2"}], " ", "ms", " ", "\[Kappa]m"}], "-", 
+     RowBox[{"2", " ", "ws", " ", "\[Kappa]w"}], "+", 
+     RowBox[{"3", " ", "\[Kappa]m", " ", 
+      RowBox[{"m", "[", "t", "]"}]}], "+", 
+     RowBox[{"3", " ", "\[Kappa]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.635491862859119*^9, 3.635494537645191*^9, 3.635504984819348*^9, {
+   3.635505076753129*^9, 3.635505100597254*^9}, 3.635505800554015*^9, 
+   3.635506244193015*^9, 3.635506518915835*^9, 3.635514319210366*^9, 
+   3.635832058052712*^9, 3.635849266147068*^9, 3.635859967505621*^9, 
+   3.635864726096745*^9, 3.635864955300744*^9, 3.636013633695509*^9, 
+   3.636029998680318*^9, 3.636033753681381*^9, 3.636037525114447*^9, 
+   3.641194466363821*^9, 3.641284433990177*^9, 3.641296377562716*^9, 
+   3.64334897440867*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"\[Beta]m", "+", "\[Delta]m"}], ")"}], " ", 
+   SuperscriptBox[
+    RowBox[{"m", "[", "t", "]"}], "2"]}], "+", 
+  RowBox[{
+   RowBox[{"m", "[", "t", "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"2", " ", "\[Beta]0"}], "-", 
+     RowBox[{"ms", " ", "\[Beta]m"}], "-", 
+     RowBox[{"ws", " ", "\[Beta]w"}], "-", 
+     RowBox[{"ms", " ", "\[Delta]m"}], "-", 
+     RowBox[{"ws", " ", "\[Delta]w"}], "+", 
+     RowBox[{"4", " ", "\[Kappa]m", " ", 
+      RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "+", 
+     RowBox[{"2", " ", "\[Kappa]w", " ", 
+      RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "+", 
+     RowBox[{"\[Beta]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}], "+", 
+     RowBox[{"\[Delta]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}]}], ")"}]}], "-", 
+  RowBox[{"2", " ", 
+   RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+     RowBox[{"ws", " ", "\[Kappa]w"}], "-", 
+     RowBox[{"\[Kappa]w", " ", 
+      RowBox[{"w", "[", "t", "]"}]}]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.635491862859119*^9, 3.635494537645191*^9, 3.635504984819348*^9, {
+   3.635505076753129*^9, 3.635505100597254*^9}, 3.635505800554015*^9, 
+   3.635506244193015*^9, 3.635506518915835*^9, 3.635514319210366*^9, 
+   3.635832058052712*^9, 3.635849266147068*^9, 3.635859967505621*^9, 
+   3.635864726096745*^9, 3.635864955300744*^9, 3.636013633695509*^9, 
+   3.636029998680318*^9, 3.636033753681381*^9, 3.636037525114447*^9, 
+   3.641194466363821*^9, 3.641284433990177*^9, 3.641296377562716*^9, 
+   3.643348974440797*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"**", " ", "if"}], " ", 
+    RowBox[{"w", "[", "t", "]"}]}], ",", " ", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], " ", "\[Equal]", " ", "ws"}], ",", " ", 
+   RowBox[{"ms", " ", 
+    RowBox[{"(", 
+     RowBox[{"\"\<desired\>\"", " ", "copy", " ", "numbers"}], ")"}]}]}], " ",
+   "***)"}]], "Input",
+ CellChangeTimes->{{3.800171562101622*^9, 3.800171580091877*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{
+   RowBox[{"dv\[Xi]\[Xi]", "/.", 
+    RowBox[{
+     RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{
+   RowBox[{"dv\[Eta]\[Xi]", "/.", 
+    RowBox[{
+     RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{
+   RowBox[{"dv\[Eta]\[Eta]", "/.", 
+    RowBox[{
+     RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.635864764830972*^9, 3.635864791575157*^9}}],
+
+Cell[BoxData[
+ RowBox[{"2", " ", "ws", " ", 
+  RowBox[{"(", 
+   RowBox[{"\[Beta]0", "+", 
+    RowBox[{"\[Kappa]m", " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "+", 
+    RowBox[{"\[Kappa]w", " ", 
+     RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}]}], ")"}]}]], "Output",
+ CellChangeTimes->{{3.635864777831847*^9, 3.63586479188494*^9}, {
+   3.635864928886177*^9, 3.635864956494072*^9}, 3.636013635431476*^9, 
+   3.636029999170315*^9, 3.636037525899121*^9, 3.641194468413076*^9, 
+   3.64128443516513*^9, 3.641296378130841*^9, 3.643348975162068*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ws", " ", "\[Kappa]m", " ", 
+   RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "+", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+     RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], " ", 
+   RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "+", 
+  RowBox[{"ms", " ", "\[Kappa]w", " ", 
+   RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}]}]], "Output",
+ CellChangeTimes->{{3.635864777831847*^9, 3.63586479188494*^9}, {
+   3.635864928886177*^9, 3.635864956494072*^9}, 3.636013635431476*^9, 
+   3.636029999170315*^9, 3.636037525899121*^9, 3.641194468413076*^9, 
+   3.64128443516513*^9, 3.641296378130841*^9, 3.643348975182014*^9}],
+
+Cell[BoxData[
+ RowBox[{"2", " ", "ms", " ", 
+  RowBox[{"(", 
+   RowBox[{"\[Beta]0", "+", 
+    RowBox[{"\[Kappa]m", " ", 
+     RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "+", 
+    RowBox[{"\[Kappa]w", " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}]}], ")"}]}]], "Output",
+ CellChangeTimes->{{3.635864777831847*^9, 3.63586479188494*^9}, {
+   3.635864928886177*^9, 3.635864956494072*^9}, 3.636013635431476*^9, 
+   3.636029999170315*^9, 3.636037525899121*^9, 3.641194468413076*^9, 
+   3.64128443516513*^9, 3.641296378130841*^9, 3.643348975216741*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"sub1", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"dv\[Xi]\[Xi]", "/.", 
+         RowBox[{
+          RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+        RowBox[{
+         RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], ")"}], " ", 
+      "\[Equal]", " ", "0"}], ",", " ", 
+     RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}], "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"sub2", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"dv\[Eta]\[Xi]", "/.", 
+          RowBox[{
+           RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+         RowBox[{
+          RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], "/.", "sub1"}], 
+       ")"}], " ", "\[Equal]", " ", "0"}], ",", " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Simplify", "[", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"dv\[Eta]\[Eta]", "/.", 
+      RowBox[{
+       RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+     RowBox[{
+      RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], "/.", "sub2"}], 
+   ")"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.635859985207018*^9, 3.635860119546954*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}], "\[Rule]", 
+   FractionBox[
+    RowBox[{
+     RowBox[{"-", "\[Beta]0"}], "-", 
+     RowBox[{"\[Kappa]m", " ", 
+      RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}]}], "\[Kappa]w"]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.63586000633215*^9, 3.635860019048109*^9}, {
+   3.635860051482608*^9, 3.635860071976586*^9}, {3.635860102536156*^9, 
+   3.635860117186797*^9}, 3.635864728139086*^9, 3.635864855291312*^9, 
+   3.635864960401924*^9, 3.636013649502864*^9, 3.636030000046751*^9, 
+   3.636037526805458*^9, 3.641194470986729*^9, 3.641284439003842*^9, 
+   3.641296379362977*^9, 3.643348976376689*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], "\[Rule]", 
+   FractionBox[
+    RowBox[{
+     RowBox[{"ms", " ", "\[Beta]0"}], "-", 
+     RowBox[{"ws", " ", "\[Kappa]m", " ", 
+      RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}]}], 
+    RowBox[{"ws", " ", "\[Kappa]w"}]]}], "}"}]], "Output",
+ CellChangeTimes->{{3.63586000633215*^9, 3.635860019048109*^9}, {
+   3.635860051482608*^9, 3.635860071976586*^9}, {3.635860102536156*^9, 
+   3.635860117186797*^9}, 3.635864728139086*^9, 3.635864855291312*^9, 
+   3.635864960401924*^9, 3.636013649502864*^9, 3.636030000046751*^9, 
+   3.636037526805458*^9, 3.641194470986729*^9, 3.641284439003842*^9, 
+   3.641296379362977*^9, 3.643348976378551*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"2", " ", "ms", " ", 
+   RowBox[{"(", 
+    RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Beta]0"}], "ws"]], "Output",
+ CellChangeTimes->{{3.63586000633215*^9, 3.635860019048109*^9}, {
+   3.635860051482608*^9, 3.635860071976586*^9}, {3.635860102536156*^9, 
+   3.635860117186797*^9}, 3.635864728139086*^9, 3.635864855291312*^9, 
+   3.635864960401924*^9, 3.636013649502864*^9, 3.636030000046751*^9, 
+   3.636037526805458*^9, 3.641194470986729*^9, 3.641284439003842*^9, 
+   3.641296379362977*^9, 3.643348976438884*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"sub1", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"dv\[Eta]\[Eta]", "/.", 
+         RowBox[{
+          RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+        RowBox[{
+         RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], ")"}], " ", 
+      "\[Equal]", " ", "0"}], ",", " ", 
+     RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"sub2", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"dv\[Eta]\[Xi]", "/.", 
+          RowBox[{
+           RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+         RowBox[{
+          RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], "/.", "sub1"}], 
+       ")"}], " ", "\[Equal]", " ", "0"}], ",", " ", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}], "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Simplify", "[", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"dv\[Xi]\[Xi]", "/.", 
+      RowBox[{
+       RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+     RowBox[{
+      RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], "/.", "sub2"}], 
+   ")"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.641284607047702*^9, 3.641284616529921*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}], "\[Rule]", 
+   FractionBox[
+    RowBox[{
+     RowBox[{"-", "\[Beta]0"}], "-", 
+     RowBox[{"\[Kappa]w", " ", 
+      RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}]}]}], "\[Kappa]m"]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.641284618199294*^9, 3.641296380114405*^9, 
+  3.643348977034953*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], "\[Rule]", 
+   FractionBox[
+    RowBox[{
+     RowBox[{"ws", " ", "\[Beta]0"}], "-", 
+     RowBox[{"ms", " ", "\[Kappa]w", " ", 
+      RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}]}]}], 
+    RowBox[{"ms", " ", "\[Kappa]m"}]]}], "}"}]], "Output",
+ CellChangeTimes->{3.641284618199294*^9, 3.641296380114405*^9, 
+  3.64334897703622*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"2", " ", "ws", " ", 
+   RowBox[{"(", 
+    RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Beta]0"}], "ms"]], "Output",
+ CellChangeTimes->{3.641284618199294*^9, 3.641296380114405*^9, 
+  3.643348977037426*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\[LineSeparator](****** time behaviour of variance *******)", "Subtitle",
+ CellChangeTimes->{{3.635501099753273*^9, 3.635501101837604*^9}, {
+   3.635832132411487*^9, 3.635832147281436*^9}, 3.635864973665365*^9, {
+   3.635865051180571*^9, 3.635865051735353*^9}, {3.636030004598967*^9, 
+   3.636030006920851*^9}, {3.636037532219786*^9, 3.636037532893294*^9}, 
+   3.641296380773521*^9, {3.800171599906975*^9, 3.8001716013634443`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"**", " ", "assume"}], " ", 
+    RowBox[{"we", "'"}], "ve", " ", "reached", " ", "desired", " ", "copy", 
+    " ", "numbers", " ", 
+    RowBox[{"w", "[", "t", "]"}]}], ",", " ", 
+   RowBox[{
+    RowBox[{"m", "[", "t", "]"}], " ", "=", " ", "ws"}], ",", " ", 
+   RowBox[{
+    RowBox[{"ms", ".", " ", "then"}], " ", "solve", " ", "the", " ", "ODEs", 
+    " ", "for", " ", 
+    RowBox[{"(", "co", ")"}], "variances"}]}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.800171628411233*^9, 3.8001716584351177`*^9}, {
+  3.800171748826294*^9, 3.800171750835641*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ssodesolns", "=", 
+  RowBox[{"Simplify", "[", 
+   RowBox[{"DSolve", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}], ",", "t"}], "]"}], 
+          "\[Equal]", "dv\[Xi]\[Xi]"}], ",", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], ",", "t"}], "]"}], 
+          "\[Equal]", "dv\[Eta]\[Xi]"}], ",", "  ", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}], ",", "t"}], "]"}], " ", 
+          "\[Equal]", " ", "dv\[Eta]\[Eta]"}], ",", " ", 
+         RowBox[{
+          RowBox[{"v\[Xi]\[Xi]", "[", "0", "]"}], " ", "\[Equal]", " ", 
+          "v\[Xi]\[Xi]0"}], ",", " ", 
+         RowBox[{
+          RowBox[{"v\[Eta]\[Xi]", "[", "0", "]"}], " ", "\[Equal]", " ", 
+          "v\[Eta]\[Xi]0"}], ",", " ", 
+         RowBox[{
+          RowBox[{"v\[Eta]\[Eta]", "[", "0", "]"}], " ", "\[Equal]", " ", 
+          "v\[Eta]\[Eta]0"}]}], "}"}], "/.", 
+       RowBox[{
+        RowBox[{"w", "[", "t", "]"}], "\[Rule]", "ws"}]}], "/.", 
+      RowBox[{
+       RowBox[{"m", "[", "t", "]"}], "\[Rule]", "ms"}]}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}], ",", 
+       RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], ",", 
+       RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "}"}], ",", " ", "t"}], 
+    "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.63550108248018*^9, 3.635501253760579*^9}, {
+  3.635504270101965*^9, 3.635504279521164*^9}, {3.635504320968629*^9, 
+  3.635504324027761*^9}, {3.635505812813599*^9, 3.635505814423303*^9}, {
+  3.63601531046245*^9, 3.636015315018822*^9}, {3.636015393212634*^9, 
+  3.636015439780407*^9}, {3.641296402898303*^9, 3.641296409676595*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}], "\[Rule]", 
+     RowBox[{
+      FractionBox["1", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+          RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"v\[Eta]\[Eta]0", " ", 
+         SuperscriptBox["ws", "3"], " ", 
+         SuperscriptBox["\[Kappa]w", "3"]}], "+", 
+        RowBox[{"ms", " ", 
+         SuperscriptBox["ws", "2"], " ", 
+         SuperscriptBox["\[Kappa]w", "2"], " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", 
+              RowBox[{"2", " ", 
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}]}], ")"}], 
+            " ", "v\[Eta]\[Eta]0", " ", "\[Kappa]m"}], "+", 
+           RowBox[{"2", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "v\[Eta]\[Xi]0"}], "+", 
+              RowBox[{"t", " ", "ws", " ", "\[Beta]0"}]}], ")"}], " ", 
+            "\[Kappa]w"}]}], ")"}]}], "+", 
+        RowBox[{
+         SuperscriptBox["ms", "3"], " ", "\[Kappa]m", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"v\[Xi]\[Xi]0", " ", 
+            SuperscriptBox["\[Kappa]w", "2"]}], "-", 
+           RowBox[{"2", " ", 
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            "\[Kappa]w", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"2", " ", "t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Eta]0", " ", 
+               SuperscriptBox["\[Kappa]m", "2"]}], "+", 
+              RowBox[{
+              "2", " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m", " ", "\[Kappa]w"}],
+               "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", 
+               SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}], "+", 
+           RowBox[{"\[Beta]0", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"2", " ", "t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "\[Kappa]m"}], "+", 
+              RowBox[{"2", " ", "t", " ", "ws", " ", 
+               SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}]}], ")"}]}], "+", 
+        
+        RowBox[{
+         SuperscriptBox["ms", "2"], " ", "ws", " ", "\[Kappa]w", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[Kappa]w", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", "2"}], " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], 
+              "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+           RowBox[{"2", " ", 
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Eta]0", " ", 
+               SuperscriptBox["\[Kappa]m", "2"]}], "-", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", 
+               SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}], "+", 
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"2", " ", "t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Eta]0", " ", 
+               SuperscriptBox["\[Kappa]m", "2"]}], "+", 
+              RowBox[{
+              "2", " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m", " ", "\[Kappa]w"}],
+               "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", 
+               SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}], "+", 
+           RowBox[{"\[Beta]0", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"2", " ", "\[Kappa]m", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "2"}], "+", 
+                 RowBox[{"2", " ", 
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], "+", 
+                 RowBox[{"t", " ", "ws", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+              RowBox[{"\[Kappa]w", " ", 
+               RowBox[{"(", 
+                RowBox[{"3", "-", 
+                 RowBox[{"4", " ", 
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"2", " ", "t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "+", 
+                 RowBox[{"2", " ", "t", " ", "ws", " ", "\[Kappa]w"}]}], 
+                ")"}]}]}], ")"}]}]}], ")"}]}]}], ")"}]}]}], ",", 
+    RowBox[{
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], "\[Rule]", 
+     RowBox[{
+      FractionBox["1", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+          RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["ws", "3"], " ", 
+         SuperscriptBox["\[Kappa]w", "2"], " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", "1"}], "+", 
+              SuperscriptBox["\[ExponentialE]", 
+               RowBox[{"t", " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                  RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], " ", 
+            "v\[Eta]\[Eta]0", " ", "\[Kappa]m"}], "+", 
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            "v\[Eta]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+        RowBox[{
+         SuperscriptBox["ms", "3"], " ", 
+         SuperscriptBox["\[Kappa]m", "2"], " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"(", 
+              RowBox[{"v\[Xi]\[Xi]0", "+", 
+               RowBox[{"2", " ", "t", " ", "ws", " ", "\[Beta]0"}]}], ")"}]}],
+             " ", "\[Kappa]w"}], "+", 
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}]}], 
+          ")"}]}], "-", 
+        RowBox[{"ms", " ", 
+         SuperscriptBox["ws", "2"], " ", "\[Kappa]w", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"-", "1"}], "+", 
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"2", " ", "t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}]}], 
+            " ", "v\[Eta]\[Eta]0", " ", 
+            SuperscriptBox["\[Kappa]m", "2"]}], "-", 
+           RowBox[{"\[Kappa]w", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2", "-", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "+", 
+                 RowBox[{"2", " ", 
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"2", " ", "t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}]}], ")"}], 
+               " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], "+", 
+              RowBox[{
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "-", 
+           RowBox[{"\[Beta]0", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"-", "1"}], "+", 
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+                "2"], " ", "\[Kappa]w"}], "+", 
+              RowBox[{"2", " ", "\[Kappa]m", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "-", 
+                 RowBox[{"t", " ", "ws", " ", "\[Kappa]w"}]}], ")"}]}]}], 
+             ")"}]}]}], ")"}]}], "-", 
+        RowBox[{
+         SuperscriptBox["ms", "2"], " ", "ws", " ", "\[Kappa]m", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            "\[Kappa]m", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Eta]0", " ", "\[Kappa]m"}], "+", 
+              RowBox[{"v\[Eta]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+           RowBox[{"\[Kappa]w", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", "2"}], " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], 
+              "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "-", 
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"2", " ", "t", " ", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"v\[Eta]\[Eta]0", " ", 
+               SuperscriptBox["\[Kappa]m", "2"]}], "+", 
+              RowBox[{
+              "2", " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m", " ", "\[Kappa]w"}],
+               "+", 
+              RowBox[{"v\[Xi]\[Xi]0", " ", 
+               SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}], "-", 
+           RowBox[{"\[Beta]0", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"\[Kappa]m", " ", 
+               RowBox[{"(", 
+                RowBox[{"1", "-", 
+                 RowBox[{"2", " ", 
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"2", " ", "t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "-", 
+                 RowBox[{"2", " ", "t", " ", "ws", " ", "\[Kappa]w"}]}], 
+                ")"}]}], "-", 
+              RowBox[{"2", " ", "\[Kappa]w", " ", 
+               RowBox[{"(", 
+                RowBox[{"1", "-", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "+", 
+                 RowBox[{"t", " ", "ws", " ", "\[Kappa]w"}]}], ")"}]}]}], 
+             ")"}]}]}], ")"}]}]}], ")"}]}]}], ",", 
+    RowBox[{
+     RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}], "\[Rule]", 
+     RowBox[{
+      FractionBox["1", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+          RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["ms", "3"], " ", 
+         RowBox[{"(", 
+          RowBox[{"v\[Xi]\[Xi]0", "+", 
+           RowBox[{"2", " ", "t", " ", "ws", " ", "\[Beta]0"}]}], ")"}], " ", 
+         
+         SuperscriptBox["\[Kappa]m", "3"]}], "+", 
+        RowBox[{
+         SuperscriptBox["ms", "2"], " ", "ws", " ", 
+         SuperscriptBox["\[Kappa]m", "2"], " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"2", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", "1"}], "+", 
+              SuperscriptBox["\[ExponentialE]", 
+               RowBox[{"t", " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                  RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], " ", 
+            "v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], "+", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "+", 
+              RowBox[{"2", " ", 
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}]}], ")"}], 
+            " ", "v\[Xi]\[Xi]0", " ", "\[Kappa]w"}], "+", 
+           RowBox[{"2", " ", "t", " ", "ws", " ", "\[Beta]0", " ", 
+            RowBox[{"(", 
+             RowBox[{"\[Kappa]m", "+", "\[Kappa]w"}], ")"}]}]}], ")"}]}], "+", 
+        RowBox[{
+         SuperscriptBox["ws", "3"], " ", "\[Kappa]w", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"-", "1"}], "+", 
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+             "2"], " ", "v\[Eta]\[Eta]0", " ", 
+            SuperscriptBox["\[Kappa]m", "2"]}], "+", 
+           RowBox[{"\[Kappa]w", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"2", " ", "t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "\[Beta]0"}], "+", 
+              RowBox[{
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"2", " ", 
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    SuperscriptBox["\[ExponentialE]", 
+                    RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+                  " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], "+", 
+                 RowBox[{
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+                  "v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}]}], ")"}]}]}], 
+          ")"}]}], "+", 
+        RowBox[{"ms", " ", 
+         SuperscriptBox["ws", "2"], " ", "\[Kappa]m", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"-", "1"}], "+", 
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+             "2"], " ", "v\[Eta]\[Eta]0", " ", 
+            SuperscriptBox["\[Kappa]m", "2"]}], "+", 
+           RowBox[{"\[Kappa]w", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"2", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"2", " ", "t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "v\[Eta]\[Xi]0", " ", "\[Kappa]m"}], "+", 
+              RowBox[{
+               SuperscriptBox["\[ExponentialE]", 
+                RowBox[{"t", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                   RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], " ", 
+               RowBox[{"(", 
+                RowBox[{"2", "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "v\[Xi]\[Xi]0", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+           RowBox[{"\[Beta]0", " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"4", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], ")"}], 
+               " ", "\[Kappa]w"}], "+", 
+              RowBox[{"\[Kappa]m", " ", 
+               RowBox[{"(", 
+                RowBox[{"3", "-", 
+                 RowBox[{"4", " ", 
+                  SuperscriptBox["\[ExponentialE]", 
+                   RowBox[{"t", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]]}], "+", 
+                 SuperscriptBox["\[ExponentialE]", 
+                  RowBox[{"2", " ", "t", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                    RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "+", 
+                 RowBox[{"2", " ", "t", " ", "ws", " ", "\[Kappa]w"}]}], 
+                ")"}]}]}], ")"}]}]}], ")"}]}]}], ")"}]}]}]}], "}"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.636015306711093*^9, 3.636015328657972*^9}, {
+   3.63601543677344*^9, 3.636015449776617*^9}, 3.636030029094268*^9, 
+   3.636033773164493*^9, 3.636037554946958*^9, 3.641194484794583*^9, {
+   3.6412963848645*^9, 3.641296410225079*^9}, 3.643348981492852*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"**", " ", "start"}], " ", "from", " ", "zero", " ", "variance"}],
+    ",", " ", 
+   RowBox[{
+   "and", " ", "make", " ", "symbol", " ", "substitutions", " ", "for", " ", 
+    "convenience"}]}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.800171689187416*^9, 3.800171736642581*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ltsolns", "=", 
+   RowBox[{
+    RowBox[{"FullSimplify", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Expand", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"ssodesolns", "/.", 
+             RowBox[{
+              SuperscriptBox["\[ExponentialE]", 
+               RowBox[{"t", " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                  RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "\[Rule]", 
+              "\[Beta]"}]}], " ", "/.", 
+            RowBox[{
+             SuperscriptBox["\[ExponentialE]", 
+              RowBox[{"2", " ", "t", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+                 RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}]}]], "\[Rule]", 
+             RowBox[{"\[Beta]", "^", "2"}]}]}], " ", "/.", 
+           RowBox[{"v\[Xi]\[Xi]0", "\[Rule]", "0"}]}], "/.", 
+          RowBox[{"v\[Eta]\[Xi]0", "\[Rule]", "0"}]}], "/.", 
+         RowBox[{"v\[Eta]\[Eta]0", "\[Rule]", "0"}]}], "]"}], "/.", 
+       RowBox[{"\[Beta]", "\[Rule]", "0"}]}], "/.", 
+      RowBox[{"\[Delta]", "\[Rule]", "0"}]}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.636033798643276*^9, 3.636034007380929*^9}, {
+  3.636034042324468*^9, 3.636034088253666*^9}, {3.641296909522425*^9, 
+  3.641296927510349*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ltsoln", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"v\[Xi]\[Xi]", "[", "t", "]"}], ",", 
+     RowBox[{"v\[Eta]\[Xi]", "[", "t", "]"}], ",", 
+     RowBox[{"v\[Eta]\[Eta]", "[", "t", "]"}]}], "}"}], "/.", 
+   "ltsolns"}]}]], "Input",
+ CellChangeTimes->{{3.636034066369245*^9, 3.636034085658521*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   FractionBox[
+    RowBox[{"ws", " ", "\[Beta]0", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"ms", " ", 
+        SuperscriptBox["\[Kappa]m", "2"], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"3", " ", "ws"}], "+", 
+          RowBox[{"2", " ", "ms", " ", "t", " ", 
+           RowBox[{"(", 
+            RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Kappa]m"}]}], ")"}]}], 
+       "+", 
+       RowBox[{"2", " ", "ms", " ", "ws", " ", "\[Kappa]m", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "2"}], "+", 
+          RowBox[{"t", " ", 
+           RowBox[{"(", 
+            RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Kappa]m"}]}], ")"}], 
+        " ", "\[Kappa]w"}], "-", 
+       RowBox[{
+        SuperscriptBox["ws", "2"], " ", 
+        SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+       RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]], ",", 
+   FractionBox[
+    RowBox[{"ms", " ", "ws", " ", "\[Beta]0", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"ms", " ", 
+        SuperscriptBox["\[Kappa]m", "2"]}], "-", 
+       RowBox[{"2", " ", 
+        RowBox[{"(", 
+         RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Kappa]m", " ", 
+        RowBox[{"(", 
+         RowBox[{"1", "+", 
+          RowBox[{"ms", " ", "t", " ", "\[Kappa]m"}]}], ")"}], " ", 
+        "\[Kappa]w"}], "+", 
+       RowBox[{"ws", " ", 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"2", " ", "t", " ", 
+           RowBox[{"(", 
+            RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Kappa]m"}]}], ")"}], 
+        " ", 
+        SuperscriptBox["\[Kappa]w", "2"]}]}], ")"}]}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+       RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]], ",", 
+   FractionBox[
+    RowBox[{"ms", " ", "\[Beta]0", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         SuperscriptBox["ms", "2"]}], " ", 
+        SuperscriptBox["\[Kappa]m", "2"]}], "-", 
+       RowBox[{
+       "4", " ", "ms", " ", "ws", " ", "\[Kappa]m", " ", "\[Kappa]w"}], "+", 
+       RowBox[{"ms", " ", "ws", " ", 
+        RowBox[{"(", 
+         RowBox[{"3", "+", 
+          RowBox[{"2", " ", "t", " ", 
+           RowBox[{"(", 
+            RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Kappa]m"}]}], ")"}], 
+        " ", 
+        SuperscriptBox["\[Kappa]w", "2"]}], "+", 
+       RowBox[{"2", " ", "t", " ", 
+        SuperscriptBox["ws", "2"], " ", 
+        RowBox[{"(", 
+         RowBox[{"ms", "+", "ws"}], ")"}], " ", 
+        SuperscriptBox["\[Kappa]w", "3"]}]}], ")"}]}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+       RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]]}], "}"}]], "Output",
+ CellChangeTimes->{{3.636034086377435*^9, 3.636034091545798*^9}, 
+   3.636037557488867*^9, 3.6411944925799*^9, 3.641296842883512*^9, 
+   3.641296882199219*^9, 3.641296929136652*^9, 3.643348986720197*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"**", " ", "grab"}], " ", "the", " ", "time", " ", "coefficients", 
+   " ", "and", " ", "intercepts", " ", "for", " ", "each", " ", "of", " ", 
+   "these", " ", "expressions"}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.800171761713643*^9, 3.80017177627388*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"coeffs", "=", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FullSimplify", "[", 
+       RowBox[{"Coefficient", "[", 
+        RowBox[{
+         RowBox[{"ltsoln", "[", 
+          RowBox[{"[", "i", "]"}], "]"}], ",", "t"}], "]"}], "]"}], ",", " ", 
+      
+      RowBox[{"FullSimplify", "[", 
+       RowBox[{
+        RowBox[{"ltsoln", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], "-", 
+        RowBox[{"t", "*", 
+         RowBox[{"Coefficient", "[", 
+          RowBox[{
+           RowBox[{"ltsoln", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], ",", "t"}], "]"}]}]}], "]"}]}], 
+     "}"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", " ", "1", ",", " ", "3"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.636034093434877*^9, 3.636034151891337*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", " ", "ms", " ", "ws", " ", 
+       RowBox[{"(", 
+        RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Beta]0", " ", 
+       SuperscriptBox["\[Kappa]m", "2"]}], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+         RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "2"]], ",", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{
+        SuperscriptBox["ws", "2"], " ", "\[Beta]0", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ws", " ", 
+           SuperscriptBox["\[Kappa]w", "2"]}], "+", 
+          RowBox[{"ms", " ", "\[Kappa]m", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "3"}], " ", "\[Kappa]m"}], "+", 
+             RowBox[{"4", " ", "\[Kappa]w"}]}], ")"}]}]}], ")"}]}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+          RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"2", " ", "ms", " ", "ws", " ", 
+        RowBox[{"(", 
+         RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Beta]0", " ", "\[Kappa]m", 
+        " ", "\[Kappa]w"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+          RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "2"]]}], ",", 
+     FractionBox[
+      RowBox[{"ms", " ", "ws", " ", "\[Beta]0", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"ms", " ", "\[Kappa]m", " ", 
+          RowBox[{"(", 
+           RowBox[{"\[Kappa]m", "-", 
+            RowBox[{"2", " ", "\[Kappa]w"}]}], ")"}]}], "+", 
+         RowBox[{"ws", " ", "\[Kappa]w", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"-", "2"}], " ", "\[Kappa]m"}], "+", "\[Kappa]w"}], 
+           ")"}]}]}], ")"}]}], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+         RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"2", " ", "ms", " ", "ws", " ", 
+       RowBox[{"(", 
+        RowBox[{"ms", "+", "ws"}], ")"}], " ", "\[Beta]0", " ", 
+       SuperscriptBox["\[Kappa]w", "2"]}], 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+         RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "2"]], ",", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{
+        SuperscriptBox["ms", "2"], " ", "\[Beta]0", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", 
+           SuperscriptBox["\[Kappa]m", "2"]}], "+", 
+          RowBox[{"ws", " ", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"4", " ", "\[Kappa]m"}], "-", 
+             RowBox[{"3", " ", "\[Kappa]w"}]}], ")"}], " ", "\[Kappa]w"}]}], 
+         ")"}]}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"ms", " ", "\[Kappa]m"}], "+", 
+          RowBox[{"ws", " ", "\[Kappa]w"}]}], ")"}], "3"]]}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.636034128590293*^9, 3.636034152220182*^9}, 
+   3.636037558010534*^9, 3.641194498206858*^9, 3.641296956559866*^9, 
+   3.643348987435478*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"**", " ", "heteroplasmy"}], " ", "variance"}], " ", "***)"}], 
+  "Subtitle"]], "Input",
+ CellChangeTimes->{{3.64334899961267*^9, 3.643349003909646*^9}, {
+  3.8001717787783737`*^9, 3.800171779994273*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"**", " ", "approximation"}], " ", "to", " ", "V", 
+   RowBox[{"(", 
+    RowBox[{"m", "/", 
+     RowBox[{"(", 
+      RowBox[{"w", "+", "m"}], ")"}]}], ")"}], " ", "from", " ", "Taylor", 
+   " ", "expansion"}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.800171783382369*^9, 3.800171796569696*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"vhr", " ", "=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"meanr", "^", "2"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"means", "^", "2"}], ")"}]}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"sigmar", "^", "2"}], " ", "/", 
+      RowBox[{"meanr", "^", "2"}]}], " ", "-", " ", 
+     RowBox[{"2", " ", 
+      RowBox[{"covrs", "/", 
+       RowBox[{"(", 
+        RowBox[{"meanr", " ", "means"}], ")"}]}]}], " ", "+", " ", 
+     RowBox[{
+      RowBox[{"sigmas", "^", "2"}], "/", 
+      RowBox[{"means", "^", "2"}]}]}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.643349048589391*^9, 3.643349066169757*^9}, {
+  3.643349139482544*^9, 3.643349151307418*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["meanr", "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"2", " ", "covrs"}], 
+       RowBox[{"meanr", " ", "means"}]]}], "+", 
+     FractionBox[
+      SuperscriptBox["sigmar", "2"], 
+      SuperscriptBox["meanr", "2"]], "+", 
+     FractionBox[
+      SuperscriptBox["sigmas", "2"], 
+      SuperscriptBox["means", "2"]]}], ")"}]}], 
+  SuperscriptBox["means", "2"]]], "Output",
+ CellChangeTimes->{3.64334915319233*^9, 3.7068628096471243`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"vh", " ", "=", " ", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"vhr", "/.", 
+        RowBox[{
+         RowBox[{"sigmas", "^", "2"}], "\[Rule]", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"sigmam", "^", "2"}], " ", "+", " ", 
+           RowBox[{"sigmaw", "^", "2"}], " ", "+", " ", 
+           RowBox[{"2", " ", "covwm"}]}], ")"}]}]}], "/.", 
+       RowBox[{"meanr", "\[Rule]", "meanm"}]}], "/.", 
+      RowBox[{"means", "\[Rule]", 
+       RowBox[{"(", 
+        RowBox[{"meanw", " ", "+", " ", "meanm"}], ")"}]}]}], "/.", 
+     RowBox[{
+      RowBox[{"sigmar", "^", "2"}], "\[Rule]", 
+      RowBox[{"sigmam", "^", "2"}]}]}], "/.", 
+    RowBox[{"covrs", " ", "\[Rule]", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"sigmam", "^", "2"}], " ", "+", " ", "covwm"}], ")"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.643349048589391*^9, 3.643349066169757*^9}, {
+  3.643349139482544*^9, 3.643349151307418*^9}, {3.7068628263728*^9, 
+  3.706862833450673*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"-", "2"}], " ", "covwm", " ", "meanm", " ", "meanw"}], "+", 
+   RowBox[{
+    SuperscriptBox["meanw", "2"], " ", 
+    SuperscriptBox["sigmam", "2"]}], "+", 
+   RowBox[{
+    SuperscriptBox["meanm", "2"], " ", 
+    SuperscriptBox["sigmaw", "2"]}]}], 
+  SuperscriptBox[
+   RowBox[{"(", 
+    RowBox[{"meanm", "+", "meanw"}], ")"}], "4"]]], "Output",
+ CellChangeTimes->{3.706862834468586*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"**", " ", "insert"}], " ", "expressions", " ", "from", " ", 
+   "solutions", " ", "above"}], " ", "***)"}]], "Input",
+ CellChangeTimes->{{3.800171832774212*^9, 3.8001718440174*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"generalvh", " ", "=", " ", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh", "/.", 
+        RowBox[{"meanw", "\[Rule]", "ws"}]}], "/.", 
+       RowBox[{"meanm", "\[Rule]", "ms"}]}], "/.", 
+      RowBox[{
+       RowBox[{"sigmaw", "^", "2"}], "\[Rule]", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"coeffs", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", 
+         RowBox[{"t", " ", 
+          RowBox[{
+           RowBox[{"coeffs", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}], ")"}]}]}], "/.", 
+     RowBox[{
+      RowBox[{"sigmam", "^", "2"}], "\[Rule]", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"coeffs", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "+", 
+        RowBox[{"t", " ", 
+         RowBox[{
+          RowBox[{"coeffs", "[", 
+           RowBox[{"[", "3", "]"}], "]"}], "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], ")"}]}]}], "/.", 
+    RowBox[{"covwm", " ", "\[Rule]", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"coeffs", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], " ", "+", " ", 
+       RowBox[{"t", " ", 
+        RowBox[{
+         RowBox[{"coeffs", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}]}], ")"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.643349158333523*^9, 3.643349251824767*^9}, {
+  3.643349855769187*^9, 3.643349859628945*^9}, {3.643350108317613*^9, 
+  3.643350109703853*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"2", " ", "ms", " ", "ws", " ", "\[Beta]0"}], 
+  SuperscriptBox[
+   RowBox[{"(", 
+    RowBox[{"ms", "+", "ws"}], ")"}], "3"]]], "Output",
+ CellChangeTimes->{
+  3.643349185482347*^9, {3.643349240675638*^9, 3.64334925547789*^9}, 
+   3.643349859969004*^9, 3.643350110089255*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Simplify", "[", 
+  RowBox[{
+   RowBox[{"generalvh", " ", "/.", " ", 
+    RowBox[{"ws", "\[Rule]", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", "h"}], ")"}], "n"}]}]}], " ", "/.", 
+   RowBox[{"ms", " ", "\[Rule]", 
+    RowBox[{"h", " ", "n"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.643350110821316*^9, 3.643350125267747*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{"2", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "h"}], ")"}], " ", "h", " ", "\[Beta]0"}], 
+   "n"]}]], "Output",
+ CellChangeTimes->{{3.643350120695557*^9, 3.643350125508906*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1346, 1036},
+WindowMargins->{{40, Automatic}, {Automatic, 66}},
+FrontEndVersion->"10.3 for Linux x86 (64-bit) (October 9, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 321, 8, 58, "Input"],
+Cell[881, 30, 181, 4, 46, "Input"],
+Cell[1065, 36, 785, 14, 55, "Input"],
+Cell[1853, 52, 325, 8, 32, "Input"],
+Cell[2181, 62, 2218, 66, 99, "Input"],
+Cell[4402, 130, 584, 14, 55, "Input"],
+Cell[4989, 146, 2535, 74, 99, "Input"],
+Cell[7527, 222, 447, 11, 77, "Input"],
+Cell[7977, 235, 547, 11, 32, "Input"],
+Cell[8527, 248, 231, 5, 32, "Input"],
+Cell[CellGroupData[{
+Cell[8783, 257, 494, 13, 32, "Input"],
+Cell[9280, 272, 725, 14, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10042, 291, 708, 9, 110, "Title"],
+Cell[10753, 302, 621, 16, 55, "Input"],
+Cell[CellGroupData[{
+Cell[11399, 322, 1300, 32, 77, "Input"],
+Cell[12702, 356, 1628, 39, 32, "Output"],
+Cell[14333, 397, 1212, 27, 32, "Output"],
+Cell[15548, 426, 1656, 40, 34, "Output"]
+}, Open  ]],
+Cell[17219, 469, 432, 12, 32, "Input"],
+Cell[CellGroupData[{
+Cell[17676, 485, 826, 24, 77, "Input"],
+Cell[18505, 511, 550, 11, 32, "Output"],
+Cell[19058, 524, 682, 15, 32, "Output"],
+Cell[19743, 541, 552, 11, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20332, 557, 1443, 42, 77, "Input"],
+Cell[21778, 601, 678, 15, 57, "Output"],
+Cell[22459, 618, 720, 15, 57, "Output"],
+Cell[23182, 635, 548, 10, 56, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23767, 650, 1445, 42, 77, "Input"],
+Cell[25215, 694, 372, 11, 57, "Output"],
+Cell[25590, 707, 409, 11, 57, "Output"],
+Cell[26002, 720, 240, 6, 56, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26279, 731, 437, 5, 81, "Subtitle"],
+Cell[26719, 738, 624, 15, 32, "Input"],
+Cell[CellGroupData[{
+Cell[27368, 757, 1925, 47, 99, "Input"],
+Cell[29296, 806, 23398, 575, 427, "Output"]
+}, Open  ]],
+Cell[52709, 1384, 350, 9, 32, "Input"],
+Cell[53062, 1395, 1489, 37, 37, "Input"],
+Cell[CellGroupData[{
+Cell[54576, 1436, 349, 9, 32, "Input"],
+Cell[54928, 1447, 3124, 88, 190, "Output"]
+}, Open  ]],
+Cell[58067, 1538, 319, 6, 32, "Input"],
+Cell[CellGroupData[{
+Cell[58411, 1548, 827, 24, 32, "Input"],
+Cell[59241, 1574, 3445, 100, 128, "Output"]
+}, Open  ]],
+Cell[62701, 1677, 270, 7, 46, "Input"],
+Cell[62974, 1686, 352, 9, 32, "Input"],
+Cell[CellGroupData[{
+Cell[63351, 1699, 691, 20, 32, "Input"],
+Cell[64045, 1721, 544, 17, 75, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[64626, 1743, 1068, 29, 55, "Input"],
+Cell[65697, 1774, 450, 14, 64, "Output"]
+}, Open  ]],
+Cell[66162, 1791, 234, 5, 32, "Input"],
+Cell[CellGroupData[{
+Cell[66421, 1800, 1739, 50, 77, "Input"],
+Cell[68163, 1852, 313, 8, 61, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[68513, 1865, 368, 10, 32, "Input"],
+Cell[68884, 1877, 260, 8, 56, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
